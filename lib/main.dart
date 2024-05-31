@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'weDevs Assignment',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        useMaterial3: false,
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),

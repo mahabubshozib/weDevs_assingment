@@ -1,0 +1,14 @@
+flutter_native_splash:
+  color: "#000000"
+  image: assets/images/dokan_logo.png
+  fullscreen: true
+
+  android_12:
+    color: "#000000"
+    image: assets/images/dokan_logo.png
+    fullscreen: true
+
+  #    icon_background_color: "#454FE5"
+  web: true
+  ios: true
+  android: true
