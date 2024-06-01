@@ -86,7 +86,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Row(
                                 children: [
-                                  SvgPicture.asset('assets/icons/profile.svg'),
+                                  SvgPicture.asset(
+                                    e == 'Account'
+                                        ? 'assets/icons/profile.svg'
+                                        : e == 'Password'
+                                            ? 'assets/icons/password.svg'
+                                            : e == 'Notification'
+                                                ? 'assets/icons/notification.svg'
+                                                : 'assets/icons/heart.svg',
+                                    color: GREY,
+                                  ),
                                   HORIZONTAL_GAP_10,
                                   Text(
                                     e,
@@ -105,6 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                         ),
+                        if(e != 'Wishlist')
                         const Divider()
                       ],
                     ),
