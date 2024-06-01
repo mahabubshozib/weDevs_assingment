@@ -1,21 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:we_devs_assignment/controller/auth_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/constants.dart';
 import 'package:we_devs_assignment/helpers/route_url.dart';
+import 'package:we_devs_assignment/model/login_request.dart';
+import 'package:we_devs_assignment/utils/util.dart';
+import 'package:we_devs_assignment/view/widgets/custom_loading.dart';
 import 'package:we_devs_assignment/view/widgets/custom_text_field.dart';
 import 'package:we_devs_assignment/view/widgets/social_media_login_button.dart';
 
 import '../../helpers/styles.dart';
 import '../widgets/custom_primary_button.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   SignInScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final authController = Get.find<AuthController>();
 
   final TextEditingController emailTextEditingController =
       TextEditingController();
+
   final TextEditingController passwordTextEditingController =
       TextEditingController();
+
+  bool passwordObscure = false;
+
+  bool checkValidity() {
+    bool isValid = true;
+    if (emailTextEditingController.text.isEmpty ||
+        passwordTextEditingController.text.isEmpty) {
+      showMessage('Every field is required');
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  login() async {
+    bool status = await authController.login(
+        loginRequest: LoginRequest(
+            password: passwordTextEditingController.text,
+            username: emailTextEditingController.text));
+
+    if (status) {
+      emailTextEditingController.clear();
+      passwordTextEditingController.clear();
+      Get.offAllNamed(homeScreen);
+      showSuccessMessage(message: 'Login successfully.');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +107,18 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Password',
-                  suffixIcon: Icon(Icons.remove_red_eye, color: GREY,),
+                  obscure: !passwordObscure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordObscure = !passwordObscure;
+                      });
+                    },
+                    icon: Icon(
+                      passwordObscure ? Icons.visibility : Icons.visibility_off,
+                      color: GREY,
+                    ),
+                  ),
                 ),
                 VERTICAL_GAP_20,
                 Align(
@@ -80,17 +129,23 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 VERTICAL_GAP_32,
-                CustomPrimaryButton(
-                  color: PRIMARY_COLOR,
-                  height: 60,
-                  onPressed: () {},
-                  child: Text(
-                    "Login",
-                    style: myStyleSourceRoboto(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: WHITE),
-                  ),
+                Obx(
+                  () => authController.loadingUserLogin.value
+                      ? const CustomLoading()
+                      : CustomPrimaryButton(
+                          color: PRIMARY_COLOR,
+                          height: 60,
+                          onPressed: () {
+                            login();
+                          },
+                          child: Text(
+                            "Login",
+                            style: myStyleSourceRoboto(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: WHITE),
+                          ),
+                        ),
                 ),
                 VERTICAL_GAP_20,
                 Row(
@@ -104,9 +159,7 @@ class SignInScreen extends StatelessWidget {
                     HORIZONTAL_GAP_20,
                     SocialMediaLoginButton(
                       imagePath: 'assets/icons/google.png',
-                      onPress: () {
-
-                      },
+                      onPress: () {},
                     ),
                   ],
                 ),

@@ -10,7 +10,7 @@ import 'route_url.dart';
 final List<GetPage<dynamic>> RoutePages = [
   GetPage(
     name: "/",
-    page: () =>  SignInScreen(),
+    page: () =>  HomeScreen(),
     children: [
       // GetPage(
       //   name: loginScreen,
@@ -24,12 +24,12 @@ final List<GetPage<dynamic>> RoutePages = [
         transition: Transition.zoom,
         transitionDuration:  Duration(milliseconds: 400),
       ),
-      GetPage(
-        name: homeScreen,
-        page: () => const HomeScreen(),
-        transition: Transition.zoom,
-        transitionDuration:  Duration(milliseconds: 400),
-      ),
+      // GetPage(
+      //   name: homeScreen,
+      //   page: () => const HomeScreen(),
+      //   transition: Transition.zoom,
+      //   transitionDuration:  Duration(milliseconds: 400),
+      // ),
     ],
   )
 ];

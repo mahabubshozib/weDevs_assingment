@@ -17,7 +17,8 @@ class AuthController extends GetxController {
     try {
       loadingUserLogin(true);
       final response = await AuthService.login(loginRequest);
-      storage.write(AUTH_TOKEN, response.data["token"]["access"]);
+      storage.write(AUTH_TOKEN, response.data["token"]);
+      print('===>> token: $AUTH_TOKEN');
       return true;
     } catch (err) {
       print('====>> login error: ${err.toString()}');
