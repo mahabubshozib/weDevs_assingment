@@ -4,6 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/constants.dart';
 import 'package:we_devs_assignment/helpers/styles.dart';
+import 'package:we_devs_assignment/view/widgets/custom_primary_button.dart';
+import 'package:we_devs_assignment/view/widgets/custom_secondary_button.dart';
+import 'package:we_devs_assignment/view/widgets/custom_text_field.dart';
+import 'package:we_devs_assignment/view/widgets/profile/profile_section_widget.dart';
+
+import '../widgets/custom_secondary_text_field.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,6 +20,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List<String> sections = ['Account', 'Password', 'Notification', 'Wishlist'];
+  final TextEditingController textEditingController = TextEditingController();
+
+  String currentSection = '';
 
   @override
   Widget build(BuildContext context) {
@@ -79,43 +88,126 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ...sections.map(
                     (e) => Column(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    e == 'Account'
-                                        ? 'assets/icons/profile.svg'
-                                        : e == 'Password'
-                                            ? 'assets/icons/password.svg'
-                                            : e == 'Notification'
-                                                ? 'assets/icons/notification.svg'
-                                                : 'assets/icons/heart.svg',
-                                    color: GREY,
-                                  ),
-                                  HORIZONTAL_GAP_10,
-                                  Text(
-                                    e,
-                                    style: myStyleSourceRoboto(
-                                        fontSize: 17,
+                        ProfileSectionWidget(
+                          sectionName: e,
+                          sectionIconPath: e == 'Account'
+                              ? 'assets/icons/profile.svg'
+                              : e == 'Password'
+                                  ? 'assets/icons/password.svg'
+                                  : e == 'Notification'
+                                      ? 'assets/icons/notification.svg'
+                                      : 'assets/icons/heart.svg',
+                          onPress: (value) {
+                            setState(() {
+                              currentSection = value;
+                            });
+                          },
+                          isActive: e == currentSection,
+                          widget: currentSection == 'Account'
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Email',
+                                      style: myStyleSourceRoboto(
+                                        fontSize: 14,
                                         fontWeight: FontWeight.normal,
-                                        color: BLACK),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: GREY,
-                                size: 17,
-                              )
-                            ],
-                          ),
+                                        color: GREY_3,
+                                      ),
+                                    ),
+                                    VERTICAL_GAP_10,
+                                    CustomSecondaryTextField(
+                                        textEditingController:
+                                            textEditingController),
+                                    VERTICAL_GAP_10,
+                                    Text(
+                                      'Full Name',
+                                      style: myStyleSourceRoboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                        color: GREY_3,
+                                      ),
+                                    ),
+                                    VERTICAL_GAP_10,
+                                    // Apt, Suite, Bldg (optional)
+                                    CustomSecondaryTextField(
+                                        textEditingController:
+                                            textEditingController),
+                                    VERTICAL_GAP_10,
+                                    Text(
+                                      'Street Address',
+                                      style: myStyleSourceRoboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                        color: GREY_3,
+                                      ),
+                                    ),
+                                    VERTICAL_GAP_10,
+                                    CustomSecondaryTextField(
+                                        textEditingController:
+                                            textEditingController),
+                                    VERTICAL_GAP_10,
+                                    Text(
+                                      'Apt, Suite, Bldg (optional)',
+                                      style: myStyleSourceRoboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                        color: GREY_3,
+                                      ),
+                                    ),
+                                    VERTICAL_GAP_10,
+                                    CustomSecondaryTextField(
+                                        textEditingController:
+                                            textEditingController),
+                                    VERTICAL_GAP_10,
+                                    Text(
+                                      'Zip Code',
+                                      style: myStyleSourceRoboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                        color: GREY_3,
+                                      ),
+                                    ),
+                                    VERTICAL_GAP_10,
+                                    CustomSecondaryTextField(
+                                        textEditingController:
+                                            textEditingController),
+                                    VERTICAL_GAP_10,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        CustomSecondaryButton(
+                                          onPressed: () {},
+                                          width: TOTAL_WIDTH * .3,
+                                          borderColor: GREY_4.withOpacity(0.6),
+                                          child: Text(
+                                            'Cancel',
+                                            style: myStyleSourceRoboto(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff607374)),
+                                          ),
+                                        ),
+                                        CustomPrimaryButton(
+                                          onPressed: () {},
+                                          color: GREEN, width: TOTAL_WIDTH * .3,
+                                          child: Text(
+                                            'Save',
+                                            style: myStyleSourceRoboto(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: WHITE,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
+                              : const SizedBox(),
                         ),
-                        if(e != 'Wishlist')
-                        const Divider()
+                        if (e != 'Wishlist') const Divider()
                       ],
                     ),
                   )

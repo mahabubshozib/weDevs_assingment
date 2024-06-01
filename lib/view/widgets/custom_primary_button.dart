@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:we_devs_assignment/helpers/constants.dart';
 
 import '../../helpers/colors.dart';
 
@@ -8,6 +9,7 @@ class CustomPrimaryButton extends StatelessWidget {
   final Widget child;
   final Color? color;
   final double height;
+  final double ?width;
   final Function onPressed;
   final bool disable;
   final bool? bordered;
@@ -17,7 +19,7 @@ class CustomPrimaryButton extends StatelessWidget {
         this.color,
         this.height = 52 ,
         this.disable = false,
-        required this.onPressed, this.bordered});
+        required this.onPressed, this.bordered, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class CustomPrimaryButton extends StatelessWidget {
     return MaterialButton(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: bordered == true ? PRIMARY_COLOR : Colors.transparent)),
-      minWidth: double.infinity,
+      minWidth: width ?? TOTAL_WIDTH,
       height: height,
       onPressed: disable?null:() => onPressed(),
       color: color ?? Theme.of(context).primaryColor,
