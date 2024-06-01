@@ -7,6 +7,7 @@ import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/constants.dart';
 import 'package:we_devs_assignment/helpers/styles.dart';
 import 'package:we_devs_assignment/view/screens/profile_screen.dart';
+import 'package:we_devs_assignment/view/widgets/home/custom_filter_widget.dart';
 import 'package:we_devs_assignment/view/widgets/home/product/product_grid_widget.dart';
 import 'package:we_devs_assignment/view/widgets/home/product/product_list_widget.dart';
 
@@ -55,44 +56,18 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(100),
           ),
           backgroundColor: PRIMARY_COLOR,
-          onPressed: () {},
+          onPressed: () {
+            showFilterModalSheet(context);
+          },
           child: SvgPicture.asset('assets/icons/search.svg')),
     );
   }
-}
 
-class FilterButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: const Icon(Icons.filter_list),
-      label: const Text('Filter'),
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-}
+  showFilterModalSheet(BuildContext context){
+    showModalBottomSheet(context: context, isScrollControlled: true ,builder: (context) {
+      return CustomFilterWidget();
+    });
 
-class SortButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: const Icon(Icons.sort),
-      label: const Text('Sort by'),
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
   }
+
 }

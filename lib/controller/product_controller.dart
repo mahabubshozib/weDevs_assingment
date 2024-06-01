@@ -13,7 +13,7 @@ class ProductController extends GetxController {
 
 
   Future<void> readAllProducts()async {
-    // try{
+    try{
       isLoadingAllProducts(true);
       final String response =
       await rootBundle.loadString('assets/json/response.json');
@@ -21,9 +21,15 @@ class ProductController extends GetxController {
       productList.value = (data as List).map((e) => Product.fromJson(e)).toList();
       debugPrint("=====>> product list: ${productList.length}");
       isLoadingAllProducts(false);
-    // }catch(e){
-    //   showMessage(e.toString());
-    //   isLoadingAllProducts(false);
-    // }
+    }catch(e){
+      showMessage(e.toString());
+      isLoadingAllProducts(false);
+    }
+  }
+
+  findNewestProduct() {
+    isLoadingAllProducts(true);
+    productList.sort((a,b) => b.price.compareTo(a.price));
+    isLoadingAllProducts(false);
   }
 }
