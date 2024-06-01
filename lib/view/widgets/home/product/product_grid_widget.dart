@@ -10,17 +10,23 @@ class ProductGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Obx(
+      () => Expanded(
         child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.7,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            itemCount: productController.productList.length,
-            itemBuilder: (context, index) {
-              return ProductCard(product: productController.productList[index],);
-            }));
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+          ),
+          itemCount: productController.productList.length,
+          itemBuilder: (context, index) {
+            return ProductCard(
+              product: productController.productList[index],
+            );
+          },
+        ),
+      ),
+    );
   }
 }

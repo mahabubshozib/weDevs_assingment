@@ -46,17 +46,17 @@ class CustomNavBar extends StatelessWidget {
             Obx(() => NavBarItem(
                 svgPath: 'assets/icons/cart.svg',
                 onPress: () {
-                  keeperController.navBarIndex.value = 3;
+                  keeperController.navBarIndex.value = 2;
                 },
-                color: keeperController.navBarIndex.value == 3
+                color: keeperController.navBarIndex.value == 2
                     ? PRIMARY_COLOR
                     : const Color(0xff6E7FAA))),
             Obx(() => NavBarItem(
                 svgPath: 'assets/icons/profile.svg',
                 onPress: () {
-                  keeperController.navBarIndex.value = 4;
+                  keeperController.navBarIndex.value = 3;
                 },
-                color: keeperController.navBarIndex.value == 4
+                color: keeperController.navBarIndex.value == 3
                     ? PRIMARY_COLOR
                     : const Color(0xff6E7FAA))),
           ],

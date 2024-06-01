@@ -24,3 +24,13 @@ void showMessage(String? msg, {bool isSuccess = false}) {
 void showSuccessMessage({required String message}){
   showMessage(message, isSuccess: true);
 }
+
+double convertStringToDouble(String value) {
+  try {
+    return value.isEmpty
+        ? 0.0
+        : (double.parse(value).toPrecision(2));
+  } catch (err) {
+    return 0;
+  }
+}

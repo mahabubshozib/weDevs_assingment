@@ -94,7 +94,7 @@ class Product {
     required this.shortDescription,
     required this.sku,
     required this.price,
-    required this.regularPrice,
+    this.regularPrice = '0.0',
     required this.salePrice,
     this.dateOnSaleFrom,
     this.dateOnSaleFromGmt,
