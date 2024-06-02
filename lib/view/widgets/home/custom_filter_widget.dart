@@ -127,7 +127,6 @@ class CustomCheckbox extends StatelessWidget {
         onChanged(value);
       },
       child: Container(
-        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: select ? PRIMARY_LIGHT_COLOR : Colors.transparent,
           borderRadius: BorderRadius.circular(6.0),

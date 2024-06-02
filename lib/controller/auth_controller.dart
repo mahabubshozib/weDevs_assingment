@@ -12,7 +12,8 @@ import '../utils/util.dart';
 class AuthController extends GetxController {
   final loadingUserLogin = false.obs;
   final loadingUserSignUp = false.obs;
-  final signUpData = SignUpRequestData(username: '', email: '', password: '').obs;
+  final signUpData =
+      SignUpRequestData(username: '', email: '', password: '').obs;
   final user = User(email: '', nicename: '', displayName: '').obs;
 
   Future<bool> login({required LoginRequest loginRequest}) async {
@@ -20,8 +21,11 @@ class AuthController extends GetxController {
     try {
       loadingUserLogin(true);
       final response = await AuthService.login(loginRequest);
-      debugPrint('===>> login response: ${response.data}',wrapWidth: 1024);
-      User currentUser = User(email: response.data['user_email'], nicename: response.data['user_nicename'], displayName: response.data['user_display_name']);
+      debugPrint('===>> login response: ${response.data}', wrapWidth: 1024);
+      User currentUser = User(
+          email: response.data['user_email'],
+          nicename: response.data['user_nicename'],
+          displayName: response.data['user_display_name']);
       user(currentUser);
       print('====>>>current user: ${currentUser.toJson()}');
       storage.write(AUTH_TOKEN, response.data["token"]);
@@ -41,8 +45,12 @@ class AuthController extends GetxController {
   }) async {
     try {
       loadingUserSignUp(true);
-      final response = await AuthService.signUp(user: signUpRequestData);
-      return true;
+      await AuthService.signUp(user: signUpRequestData);
+      bool status = await login(
+          loginRequest: LoginRequest(
+              password: signUpRequestData.password,
+              username: signUpRequestData.email));
+      return status;
     } catch (err) {
       print('=====>>sign up error: ${err.toString()}');
       showMessage(err.toString());

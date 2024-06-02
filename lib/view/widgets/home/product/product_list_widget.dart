@@ -14,6 +14,7 @@ class ProductListWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       height: TOTAL_HEIGHT,
+      color: const Color(0xffF8F8F8),
       child: Column(
         children: [
           Row(

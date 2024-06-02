@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
     return Scaffold(
       body: SafeArea(
           child: Obx(() => screens[keeperController.navBarIndex.value])),
-      backgroundColor: SCAFFOLD_BACKGROUND,
+      backgroundColor: Color(0xffF8F8F8),
       bottomNavigationBar: CustomNavBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
