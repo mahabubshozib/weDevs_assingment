@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:we_devs_assignment/controller/keeper_controller.dart';
 import 'package:we_devs_assignment/controller/product_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
@@ -23,19 +24,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   final productController = Get.find<ProductController>();
   final keeperController = Get.find<KeeperController>();
+  RefreshController refreshController = RefreshController(initialRefresh: false);
 
   @override
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       productController.readAllProducts();
-      print('length: ${productController.productList.length}');
     });
     super.initState();
   }
 
   List<Widget> screens = [
-    const ProductListWidget(),
+    ProductListWidget(),
     Container(),
     const SizedBox(),
     const ProfileScreen()
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
     return Scaffold(
       body: SafeArea(
           child: Obx(() => screens[keeperController.navBarIndex.value])),
-      backgroundColor: Color(0xffF8F8F8),
+      backgroundColor: const Color(0xffF8F8F8),
       bottomNavigationBar: CustomNavBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
           ),
           backgroundColor: PRIMARY_COLOR,
           onPressed: () {
-            showFilterModalSheet(context);
+            if(keeperController.navBarIndex.value == 0)  showFilterModalSheet(context);
           },
           child: SvgPicture.asset('assets/icons/search.svg')),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:we_devs_assignment/controller/auth_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
@@ -81,122 +82,120 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SignUpImageSection(),
-                  VERTICAL_GAP_20,
-                  CustomTextField(
-                    textEditingController: nameTextFieldController,
-                    hintText: 'Name',
-                    prefixIcon: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 5.0, bottom: 10, top: 10),
-                      child: Image.asset(
-                        'assets/icons/profile.png',
-                        height: 10,
-                      ),
+            child: Column(
+              children: [
+                const SignUpImageSection(),
+                VERTICAL_GAP_20,
+                CustomTextField(
+                  textEditingController: nameTextFieldController,
+                  hintText: 'Name',
+                  prefixIcon: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 5.0, bottom: 12, top: 12),
+                    child: SvgPicture.asset(
+                      'assets/icons/profile.svg',
+                      height: 5,
+                      color: Color(0xff7C8592),
                     ),
                   ),
-                  VERTICAL_GAP_16,
-                  CustomTextField(
-                    textEditingController: emailTextFieldController,
-                    hintText: 'Email',
-                    prefixIcon: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 5.0, bottom: 10, top: 10),
-                      child: Image.asset(
-                        'assets/icons/email.png',
-                        height: 10,
-                      ),
+                ),
+                VERTICAL_GAP_16,
+                CustomTextField(
+                  textEditingController: emailTextFieldController,
+                  hintText: 'Email',
+                  prefixIcon: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 5.0, bottom: 12, top: 12),
+                    child: SvgPicture.asset(
+                      'assets/icons/email.svg',
+                      height: 5,
                     ),
                   ),
-                  VERTICAL_GAP_16,
-                  CustomTextField(
-                    textEditingController: passwordTextFieldController,
-                    hintText: 'Password',
-                    prefixIcon: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 5.0, bottom: 10, top: 10),
-                      child: Image.asset(
-                        'assets/icons/password.png',
-                        height: 10,
-                      ),
+                ),
+                VERTICAL_GAP_16,
+                CustomTextField(
+                  textEditingController: passwordTextFieldController,
+                  hintText: 'Password',
+                  prefixIcon: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 5.0, bottom: 12, top: 12),
+                    child: SvgPicture.asset(
+                      'assets/icons/password.svg',
+                      height: 5,
                     ),
                   ),
-                  VERTICAL_GAP_16,
-                  CustomTextField(
-                    textEditingController: confirmPasswordTextFieldController,
-                    hintText: 'Confirm Password',
-                    prefixIcon: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 5.0, bottom: 10, top: 10),
-                      child: Image.asset(
-                        'assets/icons/password.png',
-                        height: 10,
-                      ),
+                ),
+                VERTICAL_GAP_16,
+                CustomTextField(
+                  textEditingController: confirmPasswordTextFieldController,
+                  hintText: 'Confirm Password',
+                  prefixIcon: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 5.0, bottom: 12, top: 12),
+                    child: SvgPicture.asset(
+                      'assets/icons/password.svg',
+                      height: 5,
                     ),
                   ),
-                  VERTICAL_GAP_32,
-                  Obx(
-                    () => authController.loadingUserSignUp.value
-                        ? const CustomLoading()
-                        : CustomPrimaryButton(
-                            color: PRIMARY_COLOR,
-                            height: 60,
-                            child: Text(
-                              'Sign Up',
-                              style: myStyleSourceRoboto(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                  color: WHITE),
-                            ),
-                            onPressed: () {
-                              signUp();
-                            },
+                ),
+                VERTICAL_GAP_32,
+                Obx(
+                  () => authController.loadingUserSignUp.value
+                      ? const CustomLoading()
+                      : CustomPrimaryButton(
+                          color: PRIMARY_COLOR,
+                          height: 60,
+                          child: Text(
+                            'Sign Up',
+                            style: myStyleSourceRoboto(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: WHITE),
                           ),
-                  ),
-                  VERTICAL_GAP_20,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialMediaLoginButton(
-                        imagePath: 'assets/icons/fb.png',
-                        onPress: () {},
-                      ),
-                      HORIZONTAL_GAP_20,
-                      SocialMediaLoginButton(
-                        imagePath: 'assets/icons/google.png',
-                        onPress: () {},
-                      ),
-                    ],
-                  ),
-                  VERTICAL_GAP_20,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Already have an account? ',
-                        style: myStyleSourceRoboto(fontSize: 17),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.offNamed('/');
-                        },
-                        child: Text(
-                          'Login',
-                          style: myStyleSourceRoboto(
-                              fontSize: 17,
-                              color: BLUE,
-                              fontWeight: FontWeight.bold),
+                          onPressed: () {
+                            signUp();
+                          },
                         ),
+                ),
+                VERTICAL_GAP_20,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocialMediaLoginButton(
+                      imagePath: 'assets/icons/fb.png',
+                      onPress: () {},
+                    ),
+                    HORIZONTAL_GAP_20,
+                    SocialMediaLoginButton(
+                      imagePath: 'assets/icons/google.png',
+                      onPress: () {},
+                    ),
+                  ],
+                ),
+                VERTICAL_GAP_20,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account? ',
+                      style: myStyleSourceRoboto(fontSize: 17),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offNamed('/');
+                      },
+                      child: Text(
+                        'Login',
+                        style: myStyleSourceRoboto(
+                            fontSize: 17,
+                            color: BLUE,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),

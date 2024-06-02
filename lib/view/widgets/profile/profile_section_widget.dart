@@ -46,13 +46,32 @@ class ProfileSectionWidget extends StatelessWidget {
                       color: GREY,
                     ),
                     HORIZONTAL_GAP_10,
-                    Text(
-                      sectionName,
-                      style: myStyleSourceRoboto(
-                          fontSize: 17,
-                          fontWeight: FontWeight.normal,
-                          color: BLACK),
-                    ),
+                    sectionName == 'Wishlist'
+                        ? RichText(
+                            text: TextSpan(
+                                text: sectionName,
+                                style: myStyleSourceRoboto(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400,
+                                    color: BLACK),
+                                children: [
+                                  TextSpan(
+                                    text: ' (00)',
+                                    style: myStyleSourceRoboto(
+                                      fontSize: 17,
+                                      color: const Color(0xff7C8592),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ]),
+                          )
+                        : Text(
+                            sectionName,
+                            style: myStyleSourceRoboto(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                color: BLACK),
+                          ),
                   ],
                 ),
                 Icon(

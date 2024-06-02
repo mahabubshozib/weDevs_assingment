@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
+import 'package:we_devs_assignment/controller/keeper_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/styles.dart';
 import 'package:we_devs_assignment/utils/util.dart';
@@ -11,6 +13,8 @@ class ProductCard extends StatelessWidget {
   Product product;
 
   ProductCard({super.key, required this.product});
+
+  final keeperController = Get.find<KeeperController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,10 @@ class ProductCard extends StatelessWidget {
                     product.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: myStyleSourceRoboto(fontSize: 18, fontWeight: FontWeight.w400, color: BLACK),
+                    style: myStyleSourceRoboto(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: BLACK),
                   ),
                   const SizedBox(height: 4),
                   Row(
@@ -73,28 +80,41 @@ class ProductCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         '\$${product.price}',
-                        style: myStyleSourceRoboto(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: myStyleSourceRoboto(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
-                  RatingBar(
-                      ignoreGestures: true,
-                      maxRating: 5,
-                      initialRating: convertStringToDouble(product.averageRating),
-                      allowHalfRating: true,
-                      itemSize: 20,
-                      ratingWidget: RatingWidget(
-                          full: const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          half: const Icon(
-                            Icons.star_half,
-                            color: Colors.amber,
-                          ),
-                          empty: const Icon(Icons.star_border_rounded)),
-                      onRatingUpdate: (double value) {})
+                  Obx(
+                    () => keeperController.activeFilter.value
+                        ? Text(
+                            '${product.totalSales.toString()} Sold',
+                            style: myStyleSourceRoboto(
+                              fontSize: 12,
+                              color: const Color(0xff838B96),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
+                        : RatingBar(
+                            ignoreGestures: true,
+                            maxRating: 5,
+                            initialRating:
+                                convertStringToDouble(product.averageRating),
+                            allowHalfRating: true,
+                            itemSize: 20,
+                            ratingWidget: RatingWidget(
+                                full: const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                half: const Icon(
+                                  Icons.star_half,
+                                  color: Colors.amber,
+                                ),
+                                empty: const Icon(Icons.star_border_rounded)),
+                            onRatingUpdate: (double value) {}),
+                  )
                 ],
               ),
             ),

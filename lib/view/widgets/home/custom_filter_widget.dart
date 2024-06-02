@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:we_devs_assignment/controller/keeper_controller.dart';
 import 'package:we_devs_assignment/controller/product_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/constants.dart';
 import 'package:we_devs_assignment/helpers/styles.dart';
 
-import '../../../controller/product_controller.dart';
 import '../custom_primary_button.dart';
 import '../custom_secondary_button.dart';
 
@@ -19,7 +19,7 @@ class CustomFilterWidget extends StatefulWidget {
 
 class _CustomFilterWidgetState extends State<CustomFilterWidget> {
   final productController = Get.find<ProductController>();
-
+  final keeperController = Get.find<KeeperController>();
 
   final List<String> _filterOptions = [
     'Newest',

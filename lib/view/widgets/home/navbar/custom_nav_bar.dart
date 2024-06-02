@@ -20,7 +20,7 @@ class CustomNavBar extends StatelessWidget {
       ),
       child: BottomAppBar(
         color: WHITE,
-        elevation: 10,
+        elevation: 1,
         shadowColor: GREY.withOpacity(0.2),
         shape: const CircularNotchedRectangle(),
         child: Row(
