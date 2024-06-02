@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:we_devs_assignment/controller/auth_controller.dart';
 import 'package:we_devs_assignment/helpers/colors.dart';
 import 'package:we_devs_assignment/helpers/constants.dart';
 import 'package:we_devs_assignment/helpers/styles.dart';
-import 'package:we_devs_assignment/view/widgets/custom_primary_button.dart';
-import 'package:we_devs_assignment/view/widgets/custom_secondary_button.dart';
-import 'package:we_devs_assignment/view/widgets/custom_text_field.dart';
 import 'package:we_devs_assignment/view/widgets/profile/profile_section_widget.dart';
 
-import '../widgets/custom_secondary_text_field.dart';
+import '../widgets/profile/account_section.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,9 +17,30 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List<String> sections = ['Account', 'Password', 'Notification', 'Wishlist'];
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController emailTextEditingController =
+      TextEditingController();
+  final TextEditingController fullNameTextEditingController =
+      TextEditingController();
+  final TextEditingController streetTextEditingController =
+      TextEditingController();
+  final TextEditingController optionalTextEditingController =
+      TextEditingController();
+  final TextEditingController zipCodeTextEditingController =
+      TextEditingController();
+  final authController = Get.find<AuthController>();
 
   String currentSection = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      emailTextEditingController.text = authController.user.value.email;
+      fullNameTextEditingController.text =
+          authController.user.value.displayName;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             VERTICAL_GAP_32,
             Text(
-              'John Smith',
+              authController.user.value.displayName,
               style: myStyleSourceRoboto(
                   fontSize: 24, fontWeight: FontWeight.bold, color: BLACK),
             ),
             Text(
-              'info@johnsmith.com',
+              authController.user.value.email,
               style: myStyleSourceRoboto(
                   fontSize: 15, fontWeight: FontWeight.normal, color: BLACK),
             ),
@@ -95,115 +113,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : e == 'Password'
                                   ? 'assets/icons/password.svg'
                                   : e == 'Notification'
-                                      ? 'assets/icons/notification.svg'
+                                      ? 'assets/icons/ring.svg'
                                       : 'assets/icons/heart.svg',
                           onPress: (value) {
-                            setState(() {
+                            if (e != currentSection) {
                               currentSection = value;
-                            });
+                            } else {
+                              currentSection = '';
+                            }
+                            setState(() {});
                           },
                           isActive: e == currentSection,
                           widget: currentSection == 'Account'
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Email',
-                                      style: myStyleSourceRoboto(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: GREY_3,
-                                      ),
-                                    ),
-                                    VERTICAL_GAP_10,
-                                    CustomSecondaryTextField(
-                                        textEditingController:
-                                            textEditingController),
-                                    VERTICAL_GAP_10,
-                                    Text(
-                                      'Full Name',
-                                      style: myStyleSourceRoboto(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: GREY_3,
-                                      ),
-                                    ),
-                                    VERTICAL_GAP_10,
-                                    // Apt, Suite, Bldg (optional)
-                                    CustomSecondaryTextField(
-                                        textEditingController:
-                                            textEditingController),
-                                    VERTICAL_GAP_10,
-                                    Text(
-                                      'Street Address',
-                                      style: myStyleSourceRoboto(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: GREY_3,
-                                      ),
-                                    ),
-                                    VERTICAL_GAP_10,
-                                    CustomSecondaryTextField(
-                                        textEditingController:
-                                            textEditingController),
-                                    VERTICAL_GAP_10,
-                                    Text(
-                                      'Apt, Suite, Bldg (optional)',
-                                      style: myStyleSourceRoboto(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: GREY_3,
-                                      ),
-                                    ),
-                                    VERTICAL_GAP_10,
-                                    CustomSecondaryTextField(
-                                        textEditingController:
-                                            textEditingController),
-                                    VERTICAL_GAP_10,
-                                    Text(
-                                      'Zip Code',
-                                      style: myStyleSourceRoboto(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: GREY_3,
-                                      ),
-                                    ),
-                                    VERTICAL_GAP_10,
-                                    CustomSecondaryTextField(
-                                        textEditingController:
-                                            textEditingController),
-                                    VERTICAL_GAP_10,
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        CustomSecondaryButton(
-                                          onPressed: () {},
-                                          width: TOTAL_WIDTH * .3,
-                                          borderColor: GREY_4.withOpacity(0.6),
-                                          child: Text(
-                                            'Cancel',
-                                            style: myStyleSourceRoboto(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: const Color(0xff607374)),
-                                          ),
-                                        ),
-                                        CustomPrimaryButton(
-                                          onPressed: () {},
-                                          color: GREEN, width: TOTAL_WIDTH * .3,
-                                          child: Text(
-                                            'Save',
-                                            style: myStyleSourceRoboto(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: WHITE,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                              ? AccountSection(
+                                  emailTextFieldController:
+                                      emailTextEditingController,
+                                  fullNameTextFieldController:
+                                      fullNameTextEditingController,
+                                  streetAddressTextFieldController:
+                                      streetTextEditingController,
+                                  optionalTextFieldController:
+                                      optionalTextEditingController,
+                                  zipCodeTextFieldController:
+                                      zipCodeTextEditingController,
+                                  cancelPress: () {
+                                    setState(() {
+                                      currentSection = '';
+                                    });
+                                  },
+                                  savePress: () {},
                                 )
                               : const SizedBox(),
                         ),

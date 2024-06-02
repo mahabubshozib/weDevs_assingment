@@ -26,8 +26,13 @@ class ProfileSectionWidget extends StatelessWidget {
       onTap: () {
         onPress(sectionName);
       },
-      child: Container(
+      child: AnimatedContainer(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
         margin: const EdgeInsets.all(5),
+        duration: const Duration(milliseconds: 400),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,13 +43,6 @@ class ProfileSectionWidget extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       sectionIconPath,
-                      // e == 'Account'
-                      //     ? 'assets/icons/profile.svg'
-                      //     : e == 'Password'
-                      //     ? 'assets/icons/password.svg'
-                      //     : e == 'Notification'
-                      //     ? 'assets/icons/notification.svg'
-                      //     : 'assets/icons/heart.svg',
                       color: GREY,
                     ),
                     HORIZONTAL_GAP_10,
@@ -66,9 +64,10 @@ class ProfileSectionWidget extends StatelessWidget {
                 )
               ],
             ),
-            if(isActive)
-              Padding(padding: EdgeInsets.only(top: 10),
-              child: widget ?? const SizedBox())
+            if (isActive)
+              Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: widget ?? const SizedBox())
           ],
         ),
       ),

@@ -20,8 +20,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   final productController = Get.find<ProductController>();
   final keeperController = Get.find<KeeperController>();
 
@@ -46,8 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Obx(() => screens[keeperController.navBarIndex.value])
-      ),
+          child: Obx(() => screens[keeperController.navBarIndex.value])),
       backgroundColor: SCAFFOLD_BACKGROUND,
       bottomNavigationBar: CustomNavBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -63,11 +61,22 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  showFilterModalSheet(BuildContext context){
-    showModalBottomSheet(context: context, isScrollControlled: true ,builder: (context) {
-      return CustomFilterWidget();
-    });
-
+  showFilterModalSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        transitionAnimationController: AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 800),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(0),
+          ),
+        ),
+        builder: (context) {
+          return const CustomFilterWidget();
+        });
   }
-
 }

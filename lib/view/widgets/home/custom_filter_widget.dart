@@ -33,10 +33,10 @@ class _CustomFilterWidgetState extends State<CustomFilterWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: TOTAL_HEIGHT * 0.6,
+      height: TOTAL_HEIGHT * 0.5,
       padding: const EdgeInsets.all(15),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           VERTICAL_GAP_20,
           SvgPicture.asset('assets/icons/pink_bar.svg'),
