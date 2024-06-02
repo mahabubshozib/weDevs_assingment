@@ -86,9 +86,11 @@ class _CustomFilterWidgetState extends State<CustomFilterWidget> {
               ),
               CustomPrimaryButton(
                 onPressed: () {
-                  if(selectedOption == 'Newest'){
-                    productController.findNewestProduct();
-                  }
+                  if(selectedOption == 'Newest') productController.sortByNewest();
+                  if(selectedOption == 'Oldest') productController.sortByOldest();
+                  if(selectedOption == 'Price low > High') productController.sortByPriceLowToHigh();
+                  if(selectedOption == 'Price high > Low') productController.sortByPriceHighToLow();
+                  if(selectedOption == 'Best selling') productController.sortByBestSelling();
                   Get.back();
                 },
                 color: GREEN,
